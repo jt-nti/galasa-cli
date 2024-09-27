@@ -8,8 +8,8 @@ package runs
 import (
 	"sort"
 
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/runsformatter"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 func orderFormattableTests(formattableTest []runsformatter.FormattableTest) []runsformatter.FormattableTest {

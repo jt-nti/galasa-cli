@@ -17,13 +17,13 @@ import (
 
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
 	"github.com/galasa-dev/cli/pkg/files"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/images"
 	"github.com/galasa-dev/cli/pkg/launcher"
 	"github.com/galasa-dev/cli/pkg/props"
 	"github.com/galasa-dev/cli/pkg/runsformatter"
 	"github.com/galasa-dev/cli/pkg/spi"
 	"github.com/galasa-dev/cli/pkg/utils"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 type Submitter struct {

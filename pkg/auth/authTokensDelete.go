@@ -14,7 +14,7 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 var (
@@ -57,29 +57,29 @@ func deleteTokenFromRestApi(tokenId string, apiClient *galasaapi.APIClient) erro
 	var context context.Context
 	var resp *http.Response
 	var responseBody []byte
-	
+
 	var restApiVersion string
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 
 	if err == nil {
-		_, resp, err = apiClient.AuthenticationAPIApi.DeleteToken(context, tokenId).ClientApiVersion(restApiVersion).Execute()
-	
+		_, resp, err = apiClient.AuthenticationAPIAPI.DeleteToken(context, tokenId).ClientApiVersion(restApiVersion).Execute()
+
 		if err != nil {
 			// Try to get the error returned from the API server and return that message
 			if (resp != nil) && (resp.StatusCode != http.StatusOK) {
 				defer resp.Body.Close()
-					responseBody, err = io.ReadAll(resp.Body)
-					log.Printf("deleteTokenFromRestApi - HTTP response - Status Code: '%v' Payload: '%v' ", resp.StatusCode, string(responseBody))
-			
+				responseBody, err = io.ReadAll(resp.Body)
+				log.Printf("deleteTokenFromRestApi - HTTP response - Status Code: '%v' Payload: '%v' ", resp.StatusCode, string(responseBody))
+
+				if err == nil {
+					var errorFromServer *galasaErrors.GalasaAPIError
+					errorFromServer, err = galasaErrors.GetApiErrorFromResponse(responseBody)
+
 					if err == nil {
-						var errorFromServer *galasaErrors.GalasaAPIError
-						errorFromServer, err = galasaErrors.GetApiErrorFromResponse(responseBody)
-			
-						if err == nil {
-							// Return a Galasa API error, because the status code is not 200 (OK)
-							err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_REVOKE_TOKEN_FAILED, tokenId, errorFromServer.Message)
-						}
+						// Return a Galasa API error, because the status code is not 200 (OK)
+						err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_REVOKE_TOKEN_FAILED, tokenId, errorFromServer.Message)
 					}
+				}
 			} else {
 				// No response was received from the API server, so something else may have gone wrong
 				err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_REVOKE_TOKEN_FAILED, tokenId, err.Error())

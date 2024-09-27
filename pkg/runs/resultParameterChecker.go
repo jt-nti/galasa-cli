@@ -15,7 +15,7 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 func ValidateResultParameter(resultInputString string, apiClient *galasaapi.APIClient) (string, error) {
@@ -33,7 +33,7 @@ func ValidateResultParameter(resultInputString string, apiClient *galasaapi.APIC
 		var rasResultNamesData *galasaapi.ResultNames
 		var httpResponse *http.Response
 
-		rasResultNamesData, httpResponse, err = apiClient.ResultArchiveStoreAPIApi.GetRasResultNames(context).ClientApiVersion(restApiVersion).Execute()
+		rasResultNamesData, httpResponse, err = apiClient.ResultArchiveStoreAPIAPI.GetRasResultNames(context).ClientApiVersion(restApiVersion).Execute()
 
 		if err == nil {
 			if httpResponse.StatusCode != http.StatusOK {

@@ -13,8 +13,8 @@ import (
 	"github.com/galasa-dev/cli/pkg/api"
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 type authenticatorImpl struct {
@@ -139,7 +139,7 @@ func (authenticator *authenticatorImpl) getJwtFromRestApi(apiServerUrl string, a
 
 		var tokenResponse *galasaapi.TokenResponse
 		var httpResponse *http.Response
-		tokenResponse, httpResponse, err = apiClient.AuthenticationAPIApi.CreateToken(context).
+		tokenResponse, httpResponse, err = apiClient.AuthenticationAPIAPI.CreateToken(context).
 			AuthProperties(authProperties).
 			ClientApiVersion(restApiVersion).
 			Execute()

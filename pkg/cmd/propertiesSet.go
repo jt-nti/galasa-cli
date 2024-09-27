@@ -10,10 +10,10 @@ import (
 	"log"
 
 	"github.com/galasa-dev/cli/pkg/api"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/properties"
 	"github.com/galasa-dev/cli/pkg/spi"
 	"github.com/galasa-dev/cli/pkg/utils"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 	"github.com/spf13/cobra"
 )
 

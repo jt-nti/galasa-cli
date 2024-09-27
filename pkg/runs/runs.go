@@ -11,8 +11,8 @@ import (
 	"time"
 
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 func getRunIdFromRunName(runName string,

@@ -12,9 +12,9 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/propertiesformatter"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 var (
@@ -39,7 +39,7 @@ func GetPropertiesNamespaces(
 		chosenFormatter, err = validateOutputFormatFlagValue(namespaceOutputFormat, validNamespaceFormatters)
 		if err == nil {
 			var namespaces []galasaapi.Namespace
-			namespaces, _, err = apiClient.ConfigurationPropertyStoreAPIApi.GetAllCpsNamespaces(context).ClientApiVersion(restApiVersion).Execute()
+			namespaces, _, err = apiClient.ConfigurationPropertyStoreAPIAPI.GetAllCpsNamespaces(context).ClientApiVersion(restApiVersion).Execute()
 			log.Printf("GetPropertiesNamespaces -  namespaces collected: %v", namespaces)
 
 			if err == nil {

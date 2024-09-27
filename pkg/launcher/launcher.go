@@ -6,7 +6,7 @@
 package launcher
 
 import (
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 type TestCatalog map[string]interface{}

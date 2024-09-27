@@ -5,6 +5,7 @@ go 1.16
 require (
 	github.com/golang-jwt/jwt/v5 v5.2.0
 	github.com/google/uuid v1.6.0
+	github.com/jt-nti/galasa-api-go v0.0.0-20240927160117-03567a069a40 // indirect
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/spf13/cobra v1.8.0
 	github.com/stretchr/testify v1.8.4

@@ -12,8 +12,8 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 // ---------------------------------------------------
@@ -81,10 +81,10 @@ func deleteRuns(
 		for _, run := range runs {
 			runId := run.GetRunId()
 			runName := *run.GetTestStructure().RunName
-	
-			apicall := apiClient.ResultArchiveStoreAPIApi.DeleteRasRunById(context, runId).ClientApiVersion(restApiVersion)
+
+			apicall := apiClient.ResultArchiveStoreAPIAPI.DeleteRasRunById(context, runId).ClientApiVersion(restApiVersion)
 			httpResponse, err = apicall.Execute()
-	
+
 			// 200-299 http status codes manifest in an error.
 			if err != nil {
 				if httpResponse == nil {
@@ -103,7 +103,7 @@ func deleteRuns(
 					)
 				}
 			}
-	
+
 			if err != nil {
 				break
 			} else {
@@ -134,7 +134,7 @@ func httpResponseToGalasaError(
 		log.Printf("Failed - HTTP response - status code: '%v'\n", statusCode)
 		err = galasaErrors.NewGalasaError(errorMsgUnexpectedStatusCodeNoResponseBody, identifier, statusCode)
 	} else {
-		
+
 		contentType := response.Header.Get("Content-Type")
 		if contentType != "application/json" {
 			err = galasaErrors.NewGalasaError(errorMsgResponseContentTypeNotJson, identifier, statusCode)
@@ -147,7 +147,7 @@ func httpResponseToGalasaError(
 				var errorFromServer *galasaErrors.GalasaAPIError
 				errorFromServer, err = galasaErrors.GetApiErrorFromResponseBytes(
 					responseBodyBytes,
-					func (marshallingError error) error {
+					func(marshallingError error) error {
 						log.Printf("Failed - HTTP response - status code: '%v' payload in response is not json: '%v' \n", statusCode, string(responseBodyBytes))
 						return galasaErrors.NewGalasaError(errorMsgResponsePayloadInWrongFormat, identifier, statusCode, marshallingError)
 					},

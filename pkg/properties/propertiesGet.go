@@ -15,9 +15,9 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/propertiesformatter"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 var (
@@ -94,7 +94,7 @@ func getCpsPropertiesFromRestApi(
 
 	if err == nil {
 		if name == "" {
-			apicall := apiClient.ConfigurationPropertyStoreAPIApi.QueryCpsNamespaceProperties(context, namespace).ClientApiVersion(restApiVersion)
+			apicall := apiClient.ConfigurationPropertyStoreAPIAPI.QueryCpsNamespaceProperties(context, namespace).ClientApiVersion(restApiVersion)
 			if prefix != "" {
 				apicall = apicall.Prefix(prefix)
 			}
@@ -106,7 +106,7 @@ func getCpsPropertiesFromRestApi(
 			}
 			cpsProperties, _, err = apicall.Execute()
 		} else {
-			apicall := apiClient.ConfigurationPropertyStoreAPIApi.GetCpsProperty(context, namespace, name).ClientApiVersion(restApiVersion)
+			apicall := apiClient.ConfigurationPropertyStoreAPIAPI.GetCpsProperty(context, namespace, name).ClientApiVersion(restApiVersion)
 			cpsProperties, _, err = apicall.Execute()
 		}
 

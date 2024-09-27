@@ -13,9 +13,9 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/api"
 	"github.com/galasa-dev/cli/pkg/files"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/props"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	"github.com/galasa-dev/cli/pkg/utils"

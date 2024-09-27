@@ -12,12 +12,12 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/galasa-dev/cli/pkg/api"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/images"
 	"github.com/galasa-dev/cli/pkg/launcher"
 	"github.com/galasa-dev/cli/pkg/runs"
 	"github.com/galasa-dev/cli/pkg/spi"
 	"github.com/galasa-dev/cli/pkg/utils"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 type RunsSubmitCommand struct {

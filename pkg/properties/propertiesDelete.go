@@ -14,7 +14,7 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 // DeleteProperty - performs all the logic to implement the `galasactl properties delete` command,
@@ -50,7 +50,7 @@ func deleteCpsProperty(namespace string,
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 
 	if err == nil {
-		apicall := apiClient.ConfigurationPropertyStoreAPIApi.DeleteCpsProperty(context, namespace, name).ClientApiVersion(restApiVersion)
+		apicall := apiClient.ConfigurationPropertyStoreAPIAPI.DeleteCpsProperty(context, namespace, name).ClientApiVersion(restApiVersion)
 		_, resp, err = apicall.Execute()
 
 		if (resp != nil) && (resp.StatusCode != http.StatusOK) {

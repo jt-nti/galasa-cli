@@ -8,7 +8,7 @@ package api
 import (
 	"fmt"
 
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 func InitialiseAPI(apiServerUrl string) *galasaapi.APIClient {

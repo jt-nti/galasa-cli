@@ -5,7 +5,7 @@
  */
 package spi
 
-import "github.com/galasa-dev/cli/pkg/galasaapi"
+import galasaapi "github.com/jt-nti/galasa-api-go"
 
 type Authenticator interface {
 	// Gets a bearer token from the persistent cache if there is one, else logs into the server to get one.

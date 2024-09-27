@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 // Structure used to collect parameters which are sent to the mock, so we can get them back in the
@@ -71,7 +71,7 @@ func (launcher *MockLauncher) SubmitTestRun(
 	stream string,
 	obrFromPortfolio string,
 	isTraceEnabled bool,
-	GherkinURL       string,
+	GherkinURL string,
 	GherkinFeature string,
 	overrides map[string]interface{},
 ) (*galasaapi.TestRuns, error) {

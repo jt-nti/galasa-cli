@@ -10,8 +10,8 @@ import (
 	"context"
 
 	"github.com/galasa-dev/cli/pkg/embedded"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 func GetUsers(loginId string, apiClient *galasaapi.APIClient, console spi.Console) error {
@@ -48,7 +48,7 @@ func getUserDataFromRestApi(
 
 	if err == nil {
 
-		apiCall := apiClient.UsersAPIApi.GetUserByLoginId(context).LoginId(loginId).ClientApiVersion(restApiVersion)
+		apiCall := apiClient.UsersAPIAPI.GetUserByLoginId(context).LoginId(loginId).ClientApiVersion(restApiVersion)
 		userProperties, _, err = apiCall.Execute()
 
 	}

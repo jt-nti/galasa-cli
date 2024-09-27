@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 // -----------------------------------------------------

@@ -17,9 +17,9 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/runsformatter"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 var (
@@ -179,7 +179,7 @@ func GetRunDetailsFromRasSearchRuns(runs []galasaapi.Run, apiClient *galasaapi.A
 
 		for _, run := range runs {
 			runid := run.GetRunId()
-			details, httpResponse, err = apiClient.ResultArchiveStoreAPIApi.GetRasRunById(context, runid).ClientApiVersion(restApiVersion).Execute()
+			details, httpResponse, err = apiClient.ResultArchiveStoreAPIAPI.GetRasRunById(context, runid).ClientApiVersion(restApiVersion).Execute()
 			if err != nil {
 				err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_QUERY_RUNS_FAILED, err.Error())
 			} else {
@@ -233,7 +233,7 @@ func GetRunsFromRestApi(
 			var runData *galasaapi.RunResults
 			var httpResponse *http.Response
 			log.Printf("Requesting page '%d' ", pageNumberWanted)
-			apicall := apiClient.ResultArchiveStoreAPIApi.GetRasSearchRuns(context).ClientApiVersion(restApiVersion).IncludeCursor("true")
+			apicall := apiClient.ResultArchiveStoreAPIAPI.GetRasSearchRuns(context).ClientApiVersion(restApiVersion).IncludeCursor("true")
 			if fromAgeMins != 0 {
 				apicall = apicall.From(fromTime)
 			}

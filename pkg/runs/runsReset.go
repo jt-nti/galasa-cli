@@ -14,8 +14,8 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	galasaapi "github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 var (
@@ -85,7 +85,7 @@ func resetRun(runName string,
 
 	if err == nil {
 
-		_, resp, err = apiClient.ResultArchiveStoreAPIApi.PutRasRunStatusById(context, runId).
+		_, resp, err = apiClient.ResultArchiveStoreAPIAPI.PutRasRunStatusById(context, runId).
 			UpdateRunStatusRequest(*runStatusUpdateRequest).
 			ClientApiVersion(restApiVersion).Execute()
 

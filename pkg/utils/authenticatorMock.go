@@ -6,8 +6,8 @@
 package utils
 
 import (
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 type MockAuthenticator struct {

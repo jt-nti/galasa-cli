@@ -15,7 +15,7 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 // RemoteLauncher A launcher, which launches and monitors tests on a remote ecosystem via HTTP/HTTPS.
@@ -53,7 +53,7 @@ func (launcher *RemoteLauncher) GetRunsByGroup(groupName string) (*galasaapi.Tes
 	)
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 	if err == nil {
-		testRuns, _, err = launcher.apiClient.RunsAPIApi.GetRunsGroup(context.TODO(), groupName).ClientApiVersion(restApiVersion).Execute()
+		testRuns, _, err = launcher.apiClient.RunsAPIAPI.GetRunsGroup(context.TODO(), groupName).ClientApiVersion(restApiVersion).Execute()
 	}
 	return testRuns, err
 }
@@ -91,7 +91,7 @@ func (launcher *RemoteLauncher) SubmitTestRun(
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 
 	if err == nil {
-		resultGroup, _, err = launcher.apiClient.RunsAPIApi.PostSubmitTestRuns(context.TODO(), groupName).TestRunRequest(*testRunRequest).ClientApiVersion(restApiVersion).Execute()
+		resultGroup, _, err = launcher.apiClient.RunsAPIAPI.PostSubmitTestRuns(context.TODO(), groupName).TestRunRequest(*testRunRequest).ClientApiVersion(restApiVersion).Execute()
 	}
 	return resultGroup, err
 }
@@ -104,7 +104,7 @@ func (launcher *RemoteLauncher) GetRunsById(runId string) (*galasaapi.Run, error
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 
 	if err == nil {
-		rasRun, _, err = launcher.apiClient.ResultArchiveStoreAPIApi.GetRasRunById(context.TODO(), runId).ClientApiVersion(restApiVersion).Execute()
+		rasRun, _, err = launcher.apiClient.ResultArchiveStoreAPIAPI.GetRasRunById(context.TODO(), runId).ClientApiVersion(restApiVersion).Execute()
 	}
 	return rasRun, err
 }
@@ -120,7 +120,7 @@ func (launcher *RemoteLauncher) GetStreams() ([]string, error) {
 
 	if err == nil {
 		var properties []galasaapi.GalasaProperty
-		properties, _, err = launcher.apiClient.ConfigurationPropertyStoreAPIApi.
+		properties, _, err = launcher.apiClient.ConfigurationPropertyStoreAPIAPI.
 			QueryCpsNamespaceProperties(context.TODO(), "framework").Prefix("test.stream").Suffix("repo").ClientApiVersion(restApiVersion).Execute()
 		if err == nil {
 
@@ -156,14 +156,14 @@ func (launcher *RemoteLauncher) GetTestCatalog(stream string) (TestCatalog, erro
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 
 	if err == nil {
-		cpsProperty, _, err = launcher.apiClient.ConfigurationPropertyStoreAPIApi.QueryCpsNamespaceProperties(context.TODO(), "framework").Prefix("test.stream."+stream).Suffix("location").ClientApiVersion(restApiVersion).Execute()
+		cpsProperty, _, err = launcher.apiClient.ConfigurationPropertyStoreAPIAPI.QueryCpsNamespaceProperties(context.TODO(), "framework").Prefix("test.stream." + stream).Suffix("location").ClientApiVersion(restApiVersion).Execute()
 		if err != nil {
 			err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_PROPERTY_GET_FAILED, stream, err)
 		} else if len(cpsProperty) < 1 {
 			err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_CATALOG_NOT_FOUND, stream)
 		}
 		if err == nil {
-			streamLocation :=cpsProperty[0].Data.Value
+			streamLocation := cpsProperty[0].Data.Value
 			catalogString := new(strings.Builder)
 			var resp *http.Response
 			resp, err = http.Get(*streamLocation)

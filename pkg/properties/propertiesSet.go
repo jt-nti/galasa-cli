@@ -14,7 +14,7 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 var (
@@ -70,7 +70,7 @@ func updateCpsProperty(namespace string,
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 
 	if err == nil {
-		apicall := apiClient.ConfigurationPropertyStoreAPIApi.UpdateCpsProperty(context, namespace, name).GalasaProperty(*property).ClientApiVersion(restApiVersion)
+		apicall := apiClient.ConfigurationPropertyStoreAPIAPI.UpdateCpsProperty(context, namespace, name).GalasaProperty(*property).ClientApiVersion(restApiVersion)
 		_, resp, err = apicall.Execute()
 		if err != nil {
 			log.Printf("updateCpsPtoperty Failed - Error: '%v'", err.Error())
@@ -110,12 +110,12 @@ func createCpsProperty(namespace string,
 	restApiVersion, err = embedded.GetGalasactlRestApiVersion()
 
 	if err == nil {
-		apicall := apiClient.ConfigurationPropertyStoreAPIApi.CreateCpsProperty(context, namespace).GalasaProperty(*property).ClientApiVersion(restApiVersion)
+		apicall := apiClient.ConfigurationPropertyStoreAPIAPI.CreateCpsProperty(context, namespace).GalasaProperty(*property).ClientApiVersion(restApiVersion)
 		_, resp, err = apicall.Execute()
 		log.Printf("createCpsProperty - HTTP response status code: '%v'", resp.StatusCode)
 
 		if err != nil {
-			if (resp != nil) {
+			if resp != nil {
 				defer resp.Body.Close()
 
 				var errorFromServer *galasaErrors.GalasaAPIError
@@ -125,7 +125,7 @@ func createCpsProperty(namespace string,
 					errorFromServer, err = galasaErrors.GetApiErrorFromResponse(responseBody)
 					if err == nil {
 						err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_POST_PROPERTY_FAILED, name, errorFromServer.Message)
-					}else {
+					} else {
 						err = galasaErrors.NewGalasaError(galasaErrors.GALASA_ERROR_POST_PROPERTY_FAILED, name, err.Error())
 					}
 				} else {

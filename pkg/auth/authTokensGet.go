@@ -10,9 +10,9 @@ import (
 	"log"
 
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/spi"
 	"github.com/galasa-dev/cli/pkg/tokensformatter"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 // GetTokens - performs all the logic to implement the `galasactl auth tokens get` command
@@ -41,7 +41,7 @@ func getAuthTokensFromRestApi(apiClient *galasaapi.APIClient) ([]galasaapi.AuthT
 	var context context.Context = nil
 	var authTokens []galasaapi.AuthToken
 
-	tokens, resp, err := apiClient.AuthenticationAPIApi.GetTokens(context).Execute()
+	tokens, resp, err := apiClient.AuthenticationAPIAPI.GetTokens(context).Execute()
 
 	if err != nil {
 		log.Println("getAuthTokensFromRestApi - Failed to retrieve list of tokens from API server")

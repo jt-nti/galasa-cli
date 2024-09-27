@@ -19,9 +19,9 @@ import (
 
 	"github.com/galasa-dev/cli/pkg/embedded"
 	galasaErrors "github.com/galasa-dev/cli/pkg/errors"
-	"github.com/galasa-dev/cli/pkg/galasaapi"
 	"github.com/galasa-dev/cli/pkg/images"
 	"github.com/galasa-dev/cli/pkg/spi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 )
 
 // DownloadArtifacts - performs all the logic to implement the `galasactl runs download` command,
@@ -282,7 +282,7 @@ func GetArtifactPathsFromRestApi(runId string, apiClient *galasaapi.APIClient) (
 		var httpResponse *http.Response
 		var artifactsList []galasaapi.ArtifactIndexEntry
 
-		artifactsList, httpResponse, err = apiClient.ResultArchiveStoreAPIApi.
+		artifactsList, httpResponse, err = apiClient.ResultArchiveStoreAPIAPI.
 			GetRasRunArtifactList(context.Background(), runId).
 			ClientApiVersion(restApiVersion).
 			Execute()
@@ -426,7 +426,7 @@ func GetFileFromRestApi(runId string, artifactPath string, apiClient *galasaapi.
 
 	if err == nil {
 
-		fileDownloaded, httpResponse, err = apiClient.ResultArchiveStoreAPIApi.
+		fileDownloaded, httpResponse, err = apiClient.ResultArchiveStoreAPIAPI.
 			GetRasRunArtifactByPath(context.Background(), runId, artifactPath).
 			ClientApiVersion(restApiVersion).
 			Execute()

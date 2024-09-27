@@ -8,7 +8,7 @@ package runsformatter
 import (
 	"testing"
 
-	"github.com/galasa-dev/cli/pkg/galasaapi"
+	galasaapi "github.com/jt-nti/galasa-api-go"
 	"github.com/stretchr/testify/assert"
 )
 
